@@ -7,19 +7,24 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <h1>NOAH Studio — Proxy View</h1>
-  <div class="controls">Serving via <code>/api/proxy?url=...</code>. Auto-fit enabled.</div>
+  <header>
+    <h1>NOAH Studio — Proxy View</h1>
+    <div class="controls">
+      Serving live content via <code>/api/proxy</code> — auto-fit enabled.
+    </div>
+  </header>
 
-  <div class="frame-wrap" id="wrap">
-    <iframe 
-      id="proxied" 
-      src="/api/proxy?url=https://noah.up.edu.ph/noah-studio" 
-      scrolling="no"
-      sandbox="allow-scripts allow-same-origin allow-forms">
-    </iframe>
-  </div>
+  <main>
+    <div class="frame-wrap" id="wrap">
+      <iframe
+        id="proxied"
+        src="/api/proxy"
+        scrolling="no"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+      ></iframe>
+    </div>
+  </main>
 
   <script src="/js/iframe-handler.js"></script>
 </body>
 </html>
-
