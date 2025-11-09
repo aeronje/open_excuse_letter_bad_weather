@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>NOAH Studio — Proxied</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <h1>NOAH Studio — Proxy View</h1>
+  <div class="controls">Serving via <code>/api/proxy?url=...</code>. Auto-fit enabled.</div>
+
+  <div class="frame-wrap" id="wrap">
+    <iframe 
+      id="proxied" 
+      src="/api/proxy?url=https://noah.up.edu.ph/noah-studio" 
+      scrolling="no"
+      sandbox="allow-scripts allow-same-origin allow-forms">
+    </iframe>
+  </div>
+
+  <script src="/js/iframe-handler.js"></script>
+</body>
+</html>
+

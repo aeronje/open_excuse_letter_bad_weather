@@ -1,0 +1,46 @@
+:root {
+  --maxw: 1200px;
+  --frame-h: 820px;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, Segoe UI, Roboto, Arial;
+  background: #0f1720;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.controls {
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.frame-wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  height: var(--frame-h);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(2,6,23,.6);
+  position: relative;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  transform-origin: 0 0;
+}
