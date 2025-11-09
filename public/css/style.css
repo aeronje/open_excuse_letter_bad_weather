@@ -4,7 +4,7 @@ body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   background: radial-gradient(circle at top left, #141e30, #243b55);
-  color: #fff;
+  color: #757575;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -228,5 +228,21 @@ footer {
 
 .markdown-body p {
   margin-bottom: 1em;
+}
+
+/* ==== Para hindi lumagpas iyong lapad ng satellite images sa card ==== */
+
+#himawari-img {
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  #himawari-img {
+    max-width: 100%;
+  }
 }
 
