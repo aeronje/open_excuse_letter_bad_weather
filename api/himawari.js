@@ -1,23 +1,26 @@
 export default async function handler(req, res) {
-  const baseUrl = "https://www.data.jma.go.jp/mscweb/data/himawari/img/se2/";
-  const prefix = "se2_snd_";
+  try {
+    const baseUrl = "https://www.data.jma.go.jp/mscweb/data/himawari/img/se2/";
+    const images = [];
+    const now = new Date();
+    const utcHour = now.getUTCHours();
+    const utcMinute = now.getUTCMinutes();
 
-  // Himawari captures roughly every 10 minutes (UTC)
-  const now = new Date();
-  const images = [];
-  const numImages = 30;
+    // Generate last 30 intervals (10-minute spacing)
+    for (let i = 0; i < 30; i++) {
+      const mins = (utcHour * 60 + utcMinute) - i * 10;
+      const h = Math.floor((mins % 1440) / 60)
+        .toString()
+        .padStart(2, "0");
+      const m = (mins % 60).toString().padStart(2, "0");
+      images.unshift(`${baseUrl}se2_snd_${h}${m}.jpg`);
+    }
 
-  for (let i = 0; i < numImages; i++) {
-    const time = new Date(now.getTime() - i * 10 * 60 * 1000);
-    const hh = time.getUTCHours().toString().padStart(2, "0");
-    const mm = Math.floor(time.getUTCMinutes() / 10) * 10;
-    const mmStr = mm.toString().padStart(2, "0");
-    const name = `${prefix}${hh}${mmStr}.jpg`;
-    images.push(baseUrl + name);
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).json(images);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error: " + String(err));
   }
-
-  res.setHeader("Content-Type", "application/json");
-  res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600");
-  res.status(200).json(images.reverse()); // oldest to newest
 }
 
