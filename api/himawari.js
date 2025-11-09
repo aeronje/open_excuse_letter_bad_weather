@@ -1,24 +1,23 @@
 export default async function handler(req, res) {
-  try {
-    const base = "https://www.data.jma.go.jp/mscweb/data/himawari/img/se2/";
-    const now = new Date();
+  const baseUrl = "https://www.data.jma.go.jp/mscweb/data/himawari/img/se2/";
+  const prefix = "se2_snd_";
 
-    // generate last 30 images (every 10 min apart)
-    const urls = [];
-    for (let i = 0; i < 30; i++) {
-      const t = new Date(now.getTime() - i * 10 * 60 * 1000);
-      const hh = t.getUTCHours().toString().padStart(2, "0");
-      const mm = t.getUTCMinutes().toString().padStart(2, "0");
-      const url = `${base}se2_snd_${hh}${mm}.jpg`;
-      urls.push(url);
-    }
+  // Himawari captures roughly every 10 minutes (UTC)
+  const now = new Date();
+  const images = [];
+  const numImages = 30;
 
-    res.setHeader("content-type", "application/json");
-    res.setHeader("cache-control", "s-maxage=300, stale-while-revalidate");
-    res.status(200).json(urls.reverse());
-  } catch (err) {
-    console.error("Himawari API Error:", err);
-    res.status(500).json({ error: "failed to load images" });
+  for (let i = 0; i < numImages; i++) {
+    const time = new Date(now.getTime() - i * 10 * 60 * 1000);
+    const hh = time.getUTCHours().toString().padStart(2, "0");
+    const mm = Math.floor(time.getUTCMinutes() / 10) * 10;
+    const mmStr = mm.toString().padStart(2, "0");
+    const name = `${prefix}${hh}${mmStr}.jpg`;
+    images.push(baseUrl + name);
   }
+
+  res.setHeader("Content-Type", "application/json");
+  res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600");
+  res.status(200).json(images.reverse()); // oldest to newest
 }
 

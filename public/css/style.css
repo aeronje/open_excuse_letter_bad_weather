@@ -1,56 +1,43 @@
 body {
-  font-family: "Segoe UI", Roboto, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
   margin: 0;
-  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #0b0b0b;
+  color: #eaeaea;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
+  align-items: center;
+  height: 100vh;
 }
 
 .main-container {
-  width: 90%;
-  max-width: 720px;
-  margin-top: 3rem;
-  text-align: center;
-}
-
-h1 {
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  color: #38bdf8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card {
-  position: relative;
-  background: #1e293b;
-  border-radius: 16px;
-  padding: 0;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  background: #1c1c1c;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+#viewer-container {
+  margin-top: 1rem;
+  background: #000;
+  border-radius: 0.5rem;
   overflow: hidden;
 }
 
-#himawari-frame {
-  width: 100%;
-  display: block;
-  border-radius: 16px;
-  transition: opacity 0.3s ease-in-out;
-  object-fit: cover;
+#himawari-img {
+  max-width: 100%;
+  border-radius: 0.5rem;
 }
 
-#himawari-timestamp {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  font-family: monospace;
-  font-size: 0.85rem;
-  padding: 4px 8px;
-  border-radius: 6px;
-  z-index: 10;
-  user-select: none;
+#timestamp {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #aaa;
 }
 
