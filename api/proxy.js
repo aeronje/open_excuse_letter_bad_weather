@@ -1,24 +1,17 @@
 // api/proxy.js
 export default async function handler(req, res) {
   try {
-    const { url } = req.query;
-    if (!url) return res.status(400).send("Missing url parameter");
-
-    let target;
-    try { target = new URL(url); }
-    catch { return res.status(400).send("Invalid url"); }
-
-    const ALLOWED_HOSTS = ['noah.up.edu.ph'];
-    if (!ALLOWED_HOSTS.includes(target.hostname))
-      return res.status(403).send("Host not allowed");
+    // Hardcode your target since you only need one site
+    const targetUrl = "https://noah.up.edu.ph/noah-studio";
+    const target = new URL(targetUrl);
 
     const fetchRes = await fetch(target.href, {
-      headers: { 'User-Agent': req.headers['user-agent'] || 'vercel-proxy' },
-      redirect: 'follow'
+      headers: { "User-Agent": req.headers["user-agent"] || "vercel-proxy" },
+      redirect: "follow",
     });
 
-    const contentType = fetchRes.headers.get('content-type') || '';
-    if (contentType.includes('text/html')) {
+    const contentType = fetchRes.headers.get("content-type") || "";
+    if (contentType.includes("text/html")) {
       let text = await fetchRes.text();
 
       const baseTag = `<base href="${target.origin}">`;
@@ -28,21 +21,23 @@ export default async function handler(req, res) {
       `;
       text = text.replace(/<head(\s|>)/i, match => `${match}${injectedHead}`);
 
-      // rewrite links to route through proxy
+      // rewrite links to route through proxy (for internal assets)
       text = text.replace(/(src|href)=["'](\/[^"']*)["']/gi,
         (m, attr, path) => `${attr}="/api/proxy?url=${encodeURIComponent(target.origin + path)}"`);
+
       const hostPattern = new RegExp(`(src|href)=["'](${target.origin.replace(/[-\/\\^$*+?.()|[\]{}]/g,'\\$&')}[^"']*)["']`, 'gi');
       text = text.replace(hostPattern,
         (m, attr, full) => `${attr}="/api/proxy?url=${encodeURIComponent(full)}"`);
+
       text = text.replace(/srcset=["']([^"']*)["']/gi, (m, s) => {
         const replaced = s.replace(/(https?:\/\/[^,\s]+|\/[^,\s]+)/g, urlItem => {
-          const absolute = urlItem.startsWith('/') ? (target.origin + urlItem) : urlItem;
+          const absolute = urlItem.startsWith("/") ? (target.origin + urlItem) : urlItem;
           return `/api/proxy?url=${encodeURIComponent(absolute)}`;
         });
         return `srcset="${replaced}"`;
       });
 
-      // inject script that posts content size to parent
+      // inject the resizing script
       const sizeScript = `
         <script>
           (function(){
@@ -64,24 +59,25 @@ export default async function handler(req, res) {
         </script>
       `;
 
-      text = text.includes('</body>')
-        ? text.replace('</body>', sizeScript + '</body>')
+      text = text.includes("</body>")
+        ? text.replace("</body>", sizeScript + "</body>")
         : text + sizeScript;
 
-      text = text.replace(/<meta[^>]*http-equiv=["']content-security-policy["'][^>]*>/gi, '');
-      text = text.replace(/<meta[^>]*http-equiv=["']x-frame-options["'][^>]*>/gi, '');
+      // strip headers that block embedding
+      text = text.replace(/<meta[^>]*http-equiv=["']content-security-policy["'][^>]*>/gi, "");
+      text = text.replace(/<meta[^>]*http-equiv=["']x-frame-options["'][^>]*>/gi, "");
 
-      res.setHeader('content-type', 'text/html; charset=utf-8');
+      res.setHeader("content-type", "text/html; charset=utf-8");
       res.send(text);
       return;
     }
 
-    // handle static assets (css/js/img)
+    // handle non-HTML assets
     const buffer = Buffer.from(await fetchRes.arrayBuffer());
-    const ct = fetchRes.headers.get('content-type');
-    if (ct) res.setHeader('content-type', ct);
-    const cc = fetchRes.headers.get('cache-control');
-    if (cc) res.setHeader('cache-control', cc);
+    const ct = fetchRes.headers.get("content-type");
+    if (ct) res.setHeader("content-type", ct);
+    const cc = fetchRes.headers.get("cache-control");
+    if (cc) res.setHeader("cache-control", cc);
 
     res.status(fetchRes.status).send(buffer);
 
