@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>aeronjebadweather</title>
+  <title>aeronjebadweather</title> <!-- Dito po iyong title page kumbaga iyong pamagat sa tab ng browser -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mobiledropbox/landing_pages_scripts@main/open_excuse_letter_bad_weather/style.css" />
 </head>
 <body>
   <main class="main-container">
-    <div class="card" id="himari-viewer">
-      <button id="view-excuse-btn" class="excuse-btn">View Excuse Letter</button>
-      <h1>Himawari Satellite - Southeast Asia 2</h1>
+    <div class="card" id="himari-viewer"> 
+      <button id="view-excuse-btn" class="excuse-btn">View Excuse Letter</button> <!-- Ito po iyong Excuse Letter kung gusto mo rin palitan -->
+      <h1>Himawari Satellite - Southeast Asia 2</h1> <!-- Ito naman po iyong isa sa mga header iyong nakikita niyo po ngayon bago ang satellite images -->
       <small><strong>Real-time feed of 30 still images from Himawari-8 B13 continuously processed on serverless Node.js and delivered through Vercel CDN.</strong></small>
       <div id="viewer-container">
-        <img id="himawari-img" src="" alt="Himawari 8 B13 satellite image" />
+        <img id="himawari-img" src="" alt="Connecting to Himawari 8 B13 satellite image ⏳" /> <!-- Kung gusto mo rin palitan iyong alt kasi nagsisilbi siya na parang loading message bago mag render ang satellite images  -->
       </div>
       <small>This 🛰️satellite imagery is made by <a href="https://www.data.jma.go.jp/mscweb/data/himawari/sat_img.php?area=se2" target="_blank">🇯🇵JMA</a>, an active partner of <a href="https://noah.up.edu.ph/noah-studio" target="_blank">🇵🇭UP NOAH</a> for weather satellite images.</small>
       <p id="timestamp"></p>
     </div>
   </main>
-
+  <!-- Mula line 23 hanggang line 46 eh puro personalization ko iyan that is the reason why puro aeronje at dito mo puede baguhin kung gusto mo -->
   <footer>
     <div class="footer-left">
       <a href="https://www.linkedin.com/in/ron-penones-241728247/" target="_blank" class="author-link">
@@ -33,7 +33,7 @@
     <div class="footer-center">
       <small>
         📺 Watch 
-        <a href="https://facebook.com/share/v/17bcSAgcNo/" target="_blank">reel</a>
+        <a href="https://web.facebook.com/share/v/17P5FzcMR5/" target="_blank">reel</a>
       for more information.</small>
     </div>
 
@@ -44,7 +44,7 @@
       </a>
     </div>
   </footer>
-  
+  <!-- itong mga script tags na ito ay may pinagkukuhaan kaya mahalaga na huwag mo na galawin ito kung iyan pa rin naman ang gusto mo na pangalan ng scripts mo -->
 <script src="/js/viewer.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="/js/markdown.js"></script>
