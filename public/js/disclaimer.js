@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="disclaimer-modal-overlay"></div>
     <div class="disclaimer-modal-content">
       <span class="disclaimer-close-btn">&times;</span>
-      <div id="markdown-content" class="disclaimer-markdown-body"></div>
+      <div id="disclaimer-markdown-content" class="disclaimer-markdown-body"></div>
     </div>
   `;
   document.body.appendChild(modal);
