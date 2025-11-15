@@ -7,6 +7,6 @@ and we definitely do not want you getting into any trouble.
 
 We value and fully comply with all applicable local and international regulations.
 
-# ✅ [I am located in a region that does not enforce restrictions on Meta platforms](https://web.facebook.com/share/v/17P5FzcMR5/)
+<a href="https://web.facebook.com/share/v/17P5FzcMR5/" class="md-btn success">✅ I am located in a region that <strong>does not enforce restrictions</strong> on Meta platforms</a>
 
-# ⚠️ [I am located in a region that enforces restrictions on Meta platforms](https://aeronjegithubdownloads.vercel.app/)
+<a href="https://aeronjegithubdownloads.vercel.app/" class="md-btn warning">⚠️ I am located in a region that <strong>enforces restrictions</strong> on Meta platforms</a>
